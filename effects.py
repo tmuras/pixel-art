@@ -11,7 +11,8 @@ class Effects:
         self.effects['snake_2'] = self.__snake2
 
         self.name = name
-        self.width, self.height = resolution
+        if resolution != None:
+            self.width, self.height = resolution
         self.delay = delay
 
     def list(self):
