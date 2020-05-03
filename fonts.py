@@ -18,11 +18,10 @@ class Fonts:
 
         pixelsArray = []
         for i in range(0, text_width, width + 1):
-            for j in range(0, text_height, height):
-                box = (i, j, i + width, j + height)
-                letter = image.crop(box)
-                letterPixels = Pixels(letter)
-                pixelArray = letterPixels.convert(resolution)
-                pixelsArray.append(pixelArray)
+            box = (i, 0, i + width, height)
+            letter = image.crop(box)
+            letterPixels = Pixels(letter)
+            pixelArray = letterPixels.convert(resolution)
+            pixelsArray.append(pixelArray)
 
         return pixelsArray
