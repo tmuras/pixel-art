@@ -2,7 +2,7 @@ import os
 import numpy as np
 
 import matplotlib.pyplot as plt
-import matplotlib.colors as colors
+from utils import hex2color
 
 class Structures:
 
@@ -33,10 +33,6 @@ class Structures:
             time = time + delay
         return animation
 
-    def __hex2color(self, hex):
-        color = colors.hex2color(hex)
-        return (int(color[0] * 255), int(color[1] * 255), int(color[2] * 255))
-
     def showAnimation(self, animation):
 
         figure = plt.figure()
@@ -49,8 +45,8 @@ class Structures:
 
         for frame in animation:
 
-            currentTime = frame["time"] / 1000
-            delay = int(currentTime - previousTime)
+            currentTime = frame["time"]
+            delay = (currentTime - previousTime) / 1000
             previousTime = currentTime
 
             if delay > 0:
@@ -59,7 +55,7 @@ class Structures:
             data = frame["data"]
             for i, row in enumerate(data):
                 for j, value in enumerate(data[i]):
-                    data[i][j] = self.__hex2color('#' + value)
+                    data[i][j] = hex2color('#' + value)
 
             image.set_data(np.array(data))
             plt.draw()

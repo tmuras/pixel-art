@@ -7,12 +7,14 @@ import json
 from pixels import Pixels
 from structures import Structures
 from fonts import Fonts
+from effects import Effects
 
 # http://www.iconarchive.com
 imagesFolder = "images/"
 structuresFolder = "structures/"
 # http://sharefonts.net
 fontPath = "fonts/code.ttf"
+showAnimation = False
 resolution = (8, 8)
 
 
@@ -30,8 +32,9 @@ def main():
     parser.add_argument('--colour', default=(255, 255, 255), type=object, help='Set font colour')
     parser.add_argument('--image', help='Get structures for image')
     parser.add_argument('--text', help='Get structures for text')
+    parser.add_argument('--effect', help='Get structures for effect')
     parser.add_argument('--images', help='Get all available images')
-
+    parser.add_argument('--effects', help='Get all available effects')
 
     args = parser.parse_args()
 
@@ -52,29 +55,41 @@ def main():
         print(images)
         exit(0)
 
+    if args.effects != None:
+        effects = Effects()
+        print(effects.list())
+        exit(0)
+
     if args.image != None:
-        image = args.image
-        structures = Structures(structuresFolderPath, image)
+        structures = Structures(structuresFolderPath, args.image)
         animation = structures.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
-
-        # structures.showAnimation(animation)
-
+        if showAnimation:
+            structures.showAnimation(animation)
         exit(0)
 
     if args.text != None:
-        text = args.text
         width, height = resolution
         fonts = Fonts(fontFullPath, height)
-        letterImages = fonts.getText(text, resolution, args.colour)
+        letterImages = fonts.getText(args.text, resolution, args.colour)
         structures = Structures(letterImages)
         animation = structures.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
+        if showAnimation:
+            structures.showAnimation(animation)
+        exit(0)
 
-        # structures.showAnimation(animation)
-
+    if args.effect != None:
+        effects = Effects(args.effect, resolution, args.delay)
+        pixelsArray, delay = effects.get(args.colour)
+        structures = Structures(pixelsArray)
+        animation = structures.get(delay)
+        animationJson = json.dumps(animation)
+        print(animationJson)
+        if showAnimation:
+            structures.showAnimation(animation)
         exit(0)
 
 

@@ -1,6 +1,6 @@
 from PIL import Image, ImageSequence
 import numpy as np
-import matplotlib.colors as colors
+from utils import rgb2hex
 import os
 
 class Pixels:
@@ -21,15 +21,8 @@ class Pixels:
         image = image.resize(resolution)
         return image
 
-    def __rgb2hex(self, color):
-        return colors.rgb2hex((color[0] / 255, color[1] / 255, color[2] / 255))[1:]
-
-    def __hex2color(self, hex):
-        color = colors.hex2color(hex)
-        return (color[0] * 255, color[1] * 255, color[2] * 255)
-
     def __convert(self, image, resolution):
-        pixelValues = [self.__rgb2hex(color) for color in image.getdata()]
+        pixelValues = [rgb2hex(color) for color in image.getdata()]
         pixelArray = np.array(pixelValues, dtype='str').reshape(resolution)
         return pixelArray
 
