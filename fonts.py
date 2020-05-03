@@ -15,7 +15,6 @@ class Fonts:
         draw = ImageDraw.Draw(image)
         draw.text((0, 0), text, colour, self.font)
         image = image.crop((0, text_height - height, text_width, text_height))
-        image.show()
 
         pixelsArray = []
         for i in range(0, text_width, width + 1):
