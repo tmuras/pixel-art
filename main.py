@@ -15,6 +15,7 @@ structuresFolder = "structures/"
 fontPath = "fonts/code.ttf"
 resolution = (8, 8)
 
+
 def main():
 
     path = os.path.dirname(sys.argv[0])
@@ -57,6 +58,9 @@ def main():
         animation = structures.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
+
+        # structures.showAnimation(animation)
+
         exit(0)
 
     if args.text != None:
@@ -68,6 +72,9 @@ def main():
         animation = structures.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
+
+        # structures.showAnimation(animation)
+
         exit(0)
 
 
