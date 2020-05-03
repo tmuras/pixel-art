@@ -33,11 +33,11 @@ class Structures:
             time = time + delay
         return animation
 
-    def showAnimation(self, animation):
+    def showAnimation(self, animation, resolution):
 
         figure = plt.figure()
         figure.canvas.draw_idle()
-        dataEmpty = np.zeros((1, 1))
+        dataEmpty = np.zeros(resolution)
         image = plt.imshow(dataEmpty)
         plt.show(block=False)
 

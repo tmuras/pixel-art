@@ -14,7 +14,7 @@ imagesFolder = "images/"
 structuresFolder = "structures/"
 # http://sharefonts.net
 fontPath = "fonts/code.ttf"
-showAnimation = False
+showAnimation = True
 resolution = (8, 8)
 
 
@@ -66,7 +66,7 @@ def main():
         animationJson = json.dumps(animation)
         print(animationJson)
         if showAnimation:
-            structures.showAnimation(animation)
+            structures.showAnimation(animation, resolution)
         exit(0)
 
     if args.text != None:
@@ -78,7 +78,7 @@ def main():
         animationJson = json.dumps(animation)
         print(animationJson)
         if showAnimation:
-            structures.showAnimation(animation)
+            structures.showAnimation(animation, resolution)
         exit(0)
 
     if args.effect != None:
@@ -89,7 +89,7 @@ def main():
         animationJson = json.dumps(animation)
         print(animationJson)
         if showAnimation:
-            structures.showAnimation(animation)
+            structures.showAnimation(animation, resolution)
         exit(0)
 
 
