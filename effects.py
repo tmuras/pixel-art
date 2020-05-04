@@ -4,22 +4,22 @@ from structures import Structures
 
 class Effects:
 
-    def __init__(self, name=None, resolution=None, delay=None):
+    def __init__(self, name=None, resolution=None):
 
         self.effects = {}
         self.effects['snake_1'] = self.__snake1
         self.effects['snake_2'] = self.__snake2
+        self.effects['rainbow'] = self.__rainbow
 
         self.name = name
         if resolution != None:
             self.width, self.height = resolution
-        self.delay = delay
 
     def list(self):
         return list(self.effects.keys())
 
-    def get(self, colour):
-        return self.effects[self.name](colour)
+    def get(self, parameter):
+        return self.effects[self.name](parameter)
 
     def __snake1(self, colour):
         matrix = np.zeros([self.width, self.height], dtype=object)
@@ -60,7 +60,7 @@ class Effects:
                 jChange = 1
                 iChange = 0
 
-        return (pixelsArray, 50)
+        return pixelsArray
 
     def __snake2(self, colour):
         matrix = np.zeros([self.width, self.height], dtype=object)
@@ -93,4 +93,46 @@ class Effects:
             elif j == 0 and jChange == 0:
                 jChange = 1
 
-        return (pixelsArray, 50)
+        return pixelsArray
+
+    def __rainbow(self, parameters):
+
+        pixelsArray = []
+        increment, iterations = parameters
+        state = 0
+        r = 255
+        g = 0
+        b = 0
+
+        for i in range(0, iterations):
+            matrix = np.zeros([self.width, self.height], dtype=object)
+            matrix.fill(rgb2hex((r, g, b)))
+
+            if state == 0:
+                g = g + increment
+                if g > 255 - increment:
+                    state = 1
+            if state == 1:
+                r = r - increment
+                if r < increment:
+                    state = 2
+            if state == 2:
+                b = b + increment
+                if b > 255 - increment:
+                    state = 3
+            if state == 3:
+                g = g - increment
+                if g < increment:
+                    state = 4
+            if state == 4:
+                r = r + increment
+                if r > 255 - increment:
+                    state = 5
+            if state == 5:
+                b = b - increment
+                if b < increment:
+                    state = 0
+
+            pixelsArray.append(matrix.copy().tolist())
+
+        return pixelsArray

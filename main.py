@@ -14,7 +14,7 @@ imagesFolder = "images/"
 structuresFolder = "structures/"
 # http://sharefonts.net
 fontPath = "fonts/code.ttf"
-showAnimation = True
+showAnimation = False
 resolution = (8, 8)
 
 
@@ -29,7 +29,8 @@ def main():
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--update', default=False, type=bool, help='Regenerate structures from existing images')
     parser.add_argument('--delay', default=1000, type=int, help='Set animation delay')
-    parser.add_argument('--colour', default=(255, 255, 255), type=object, help='Set font colour')
+    parser.add_argument('--colour', default=[255, 255, 255], type=int, nargs=3, help='Set font colour')
+    parser.add_argument('--parameters', default=[255, 255, 255], type=int, nargs='*', help='Set parameters for effect')
     parser.add_argument('--image', help='Get structures for image')
     parser.add_argument('--text', help='Get structures for text')
     parser.add_argument('--effect', help='Get structures for effect')
@@ -37,6 +38,7 @@ def main():
     parser.add_argument('--effects', help='Get all available effects')
 
     args = parser.parse_args()
+    args.colour = (args.colour[0], args.colour[1], args.colour[2])
 
     if args.update == True:
         # http://www.iconarchive.com/show/arcade-saturdays-icons-by-mad-science/Bashfull-Inky-icon.html
@@ -82,10 +84,10 @@ def main():
         exit(0)
 
     if args.effect != None:
-        effects = Effects(args.effect, resolution, args.delay)
-        pixelsArray, delay = effects.get(args.colour)
+        effects = Effects(args.effect, resolution)
+        pixelsArray = effects.get(args.parameters)
         structures = Structures(pixelsArray)
-        animation = structures.get(delay)
+        animation = structures.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
         if showAnimation:
