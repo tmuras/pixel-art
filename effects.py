@@ -1,6 +1,5 @@
 import numpy as np
 from utils import rgb2hex
-from structures import Structures
 
 class Effects:
 

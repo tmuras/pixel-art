@@ -8,13 +8,14 @@ from pixels import Pixels
 from structures import Structures
 from fonts import Fonts
 from effects import Effects
+from test import Test
 
 # http://www.iconarchive.com
 imagesFolder = "images/"
 structuresFolder = "structures/"
 # http://sharefonts.net
 fontPath = "fonts/code.ttf"
-showAnimation = False
+showAnimation = True
 resolution = (8, 8)
 
 
@@ -27,15 +28,17 @@ def main():
     fontFullPath = path + "/" + fontPath
 
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--update', default=False, type=bool, help='Regenerate structures from existing images')
-    parser.add_argument('--delay', default=1000, type=int, help='Set animation delay')
-    parser.add_argument('--colour', default=[255, 255, 255], type=int, nargs=3, help='Set font colour')
-    parser.add_argument('--parameters', default=[255, 255, 255], type=int, nargs='*', help='Set parameters for effect')
-    parser.add_argument('--image', help='Get structures for image')
-    parser.add_argument('--text', help='Get structures for text')
-    parser.add_argument('--effect', help='Get structures for effect')
-    parser.add_argument('--images', help='Get all available images')
-    parser.add_argument('--effects', help='Get all available effects')
+    parser.add_argument('--update', default=False, type=bool, help='Re-create structures from existing images (default: False). True if images should be re-created')
+    parser.add_argument('--delay', default=1000, type=int, help='Set delay in ms between animation frames - image, text, and effect (dafault: 1000)')
+    parser.add_argument('--colour', default=[255, 255, 255], type=int, nargs=3, help='Set font colour in RGB format - 3 values between 0 and 255 (default: 255 255 255)')
+    parser.add_argument('--parameters', default=[255, 255, 255], type=int, nargs='*', help='Set parameters for effect. Use colour in RGB format for snakes and colour increment speed(integer) and number of frames for rainbow')
+    parser.add_argument('--image', help='Enter image name to get animation. Required option is delay')
+    parser.add_argument('--text', help='Enter text to get animation. Required options are: colour and delay')
+    parser.add_argument('--effect', help='Enter effect name to get animation. Required options are: parameters and delay')
+    parser.add_argument('--images', help='Get list of all available image names to be used in image option')
+    parser.add_argument('--effects', help='Get list of all available effect names to be used in effect option')
+    parser.add_argument('--test', help='Get test matrix (only one frame)')
+    parser.print_help()
 
     args = parser.parse_args()
     args.colour = (args.colour[0], args.colour[1], args.colour[2])
@@ -62,14 +65,14 @@ def main():
         print(effects.list())
         exit(0)
 
-    if args.image != None:
-        structures = Structures(structuresFolderPath, args.image)
-        animation = structures.get(args.delay)
-        animationJson = json.dumps(animation)
-        print(animationJson)
-        if showAnimation:
-            structures.showAnimation(animation, resolution)
-        exit(0)
+        if args.image != None:
+            structures = Structures(structuresFolderPath, args.image)
+            animation = structures.get(args.delay)
+            animationJson = json.dumps(animation)
+            print(animationJson)
+            if showAnimation:
+                structures.showAnimation(animation, resolution)
+            exit(0)
 
     if args.text != None:
         width, height = resolution
@@ -94,6 +97,16 @@ def main():
             structures.showAnimation(animation, resolution)
         exit(0)
 
+    if args.test != None:
+        test = Test(resolution)
+        pixelsArray = test.get()
+        structures = Structures(pixelsArray)
+        animation = structures.get(args.delay)
+        animationJson = json.dumps(animation)
+        print(animationJson)
+        if showAnimation:
+            structures.showAnimation(animation, resolution)
+        exit(0)
 
 if __name__ == "__main__":
     main()
