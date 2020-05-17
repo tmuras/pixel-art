@@ -1,8 +1,0 @@
-ffffff ffffff eaeaea 171716 121105 121213 d8d8d8 fdfdfd
-ffffff ffffff eaeaed 272619 c1af27 262308 2a2b2b ebebeb
-ffffff ffffff d5d7da 393317 edb70b d9c227 272619 e5e5e8
-fdfdfd dadadb 484128 dabd27 feac05 eaa908 2a2719 e8e9ec
-e7e8ea 383027 d67905 ff9e09 fdab0d e85c1c 3d231b d2d2d3
-e7e9e9 382c2b cc4838 f64c35 ee4835 f45144 c5441f 382c27
-fdfdfd dbdcdc 483132 c94140 e23f33 d44721 4f362e d4d5d5
-ffffff ffffff d6d7d7 261919 160605 271a15 d8d8d9 ffffff

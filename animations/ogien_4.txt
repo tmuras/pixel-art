@@ -1,0 +1,16 @@
+ffffff ffffff ffffff ffffff ffffff ffffff ffffff ededed 151515 000000 000000 121215 ededed ffffff ffffff ffffff
+ffffff ffffff ffffff ffffff ffffff fdfdfd ececec d7d7d7 131313 020200 131104 262518 d9d9d7 ececec fdfdfd ffffff
+ffffff ffffff ffffff ffffff ffffff ececec 282828 131313 000001 100f04 dbca33 ddcc35 232214 242527 ededed ffffff
+ffffff ffffff ffffff ffffff ffffff eaeaea 121212 000000 131104 282509 f2dc34 f1da33 0e0d00 0e0f11 ebebeb ffffff
+ffffff ffffff ffffff ffffff ffffff ededed 0e1014 0d0c01 d7c833 ecdb35 fec90f eab50a 110c00 111214 ebebeb ffffff
+ffffff ffffff ffffff fdfdfd ececec d8d8d7 221f13 241e01 efd733 ffe734 ffc30a eaad05 110c00 111214 ebebeb ffffff
+ffffff ffffff ffffff efefef 222527 201d12 d8a607 ecb306 fda105 ff9f04 ff9e01 ea8f00 110900 111315 ebebeb ffffff
+ffffff fdfdfd ececec d8d7d7 1f1213 210e01 edac0c ffb90d ff9503 ff9102 ff9900 ea8c00 110900 111315 ebebeb ffffff
+ffffff ededed 242727 221514 cf3a2e e44033 ef5a47 f15c46 fd5b22 fe601c ff9602 ea8e00 0e0800 0e1215 eeeeee ffffff
+ffffff ebebeb 0e1111 0d0000 e33e30 fa4639 ef514e f0524d fc542a fd5a23 ff9006 ec8903 240f03 221816 dad9d8 eaeaea
+ffffff ebebeb 0e1111 0d0000 e33e30 fa4639 ef524d ef534f f0544d f15448 fd5b23 fd5b1e ef5220 da4b1e 231613 111111
+ffffff ededed 242727 221514 cf3a2e e44034 ed504b ee514d ee514e ef514a fb5328 fb5323 ef5120 da4b1e 231613 111111
+ffffff fdfdfd ececec d8d7d7 201413 1f0302 d83734 ec3d39 e93c38 e93c37 ed3d35 d93730 200501 201612 d9d8d8 eaeaea
+ffffff ffffff ffffff efefef 222627 1e1313 c3312e d53531 d23430 d23430 d53532 c3312f 1e1313 222627 eff0f0 ffffff
+ffffff ffffff ffffff fdfdfd ececec d9d7d7 241717 120504 120504 120504 120504 241717 d9d7d7 ececec fdfdfd ffffff
+ffffff ffffff ffffff ffffff ffffff ededed 121515 000000 000000 000000 000000 121515 ededed ffffff ffffff ffffff

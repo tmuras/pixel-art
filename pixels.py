@@ -21,13 +21,21 @@ class Pixels:
         image = image.resize(resolution)
         return image
 
-    def __convert(self, image, resolution):
+    def __convert(self, image, resolution, deleteColumn = None):
+        height, width = resolution
         pixelValues = [rgb2hex(color) for color in image.getdata()]
-        pixelArray = np.array(pixelValues, dtype='str').reshape(resolution)
-        return pixelArray
+        pixelArray = np.array(pixelValues, dtype='str')
+        pixelArray = pixelArray.reshape(height, -1)
+        if deleteColumn != None:
+            pixelArray = pixelArray[:, deleteColumn:width + deleteColumn]
+        emptyArray = np.full(resolution, '000000')
+        pixelArray = pixelArray[:height, :width]
+        for i in range(0, len(pixelArray)):
+            for j in range(0, len(pixelArray[i])):
+                emptyArray[i, j] = pixelArray[i, j]
+        return emptyArray
 
     def save(self, resolution, outputFolder):
-
         index = 1
         for frame in ImageSequence.Iterator(self.image):
             file, ext = os.path.splitext(self.filename)
@@ -37,6 +45,6 @@ class Pixels:
             np.savetxt(outputFilePath, pixelArray, fmt='%s')
             index += 1
 
-    def convert(self, resolution):
-        pixelArray = self.__convert(self.image, resolution)
+    def convert(self, resolution, deleteColumn = None):
+        pixelArray = self.__convert(self.image, resolution, deleteColumn)
         return pixelArray.tolist()

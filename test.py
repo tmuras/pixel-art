@@ -11,7 +11,7 @@ class Test:
 
     def __init__(self, resolution):
 
-        self.width, self.height = resolution
+        self.height, self.width = resolution
 
 
     def get(self):

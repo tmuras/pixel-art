@@ -1,8 +1,0 @@
-ffffff ffffff ffffff d6d7d7 242315 272515 d8d7d6 fcfcfd
-ffffff fdfdfd dadadb 4a482f d6c32d c4b62e 4f4d42 eaeaec
-ffffff ebecef 36362a d7c027 efba0b 4b4115 c6c7c7 fafbfb
-fdfdfd d8d8da 362c11 ecaf05 fea003 d59604 3b392c eaebee
-e7e8ea 393127 da7c04 fc8f06 fd5f1f e9521e 3a2019 d1d1d2
-e7e9ea 382d28 d54a18 ed4133 eb3939 ec2556 be322e 372a28
-fdfdfd dbdcdb 482e30 c21c4b d53039 c31b4f 4c3035 d4d5d4
-ffffff ffffff d6d7d8 25151b 150506 25151a d8d8d9 ffffff

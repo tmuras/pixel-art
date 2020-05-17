@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from utils import hex2color
 
-class Structures:
+class Animation:
 
     def __init__(self, *args):
 
@@ -30,10 +30,10 @@ class Structures:
                 'data': pixelArray
             }
             animation.append(row)
-            time = time + delay
+            time = delay
         return animation
 
-    def showAnimation(self, animation, resolution):
+    def show(self, animation, resolution):
 
         figure = plt.figure()
         figure.canvas.draw_idle()
@@ -41,16 +41,11 @@ class Structures:
         image = plt.imshow(dataEmpty)
         plt.show(block=False)
 
-        previousTime = 0
-
         for frame in animation:
 
-            currentTime = frame["time"]
-            delay = (currentTime - previousTime) / 1000
-            previousTime = currentTime
-
+            delay = frame["time"]
             if delay > 0:
-                plt.pause(delay)
+                plt.pause(delay/1000)
 
             data = frame["data"]
             for i, row in enumerate(data):

@@ -12,7 +12,7 @@ class Effects:
 
         self.name = name
         if resolution != None:
-            self.width, self.height = resolution
+            self.height, self.width = resolution
 
     def list(self):
         return list(self.effects.keys())

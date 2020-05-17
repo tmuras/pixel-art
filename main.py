@@ -5,18 +5,18 @@ import os
 import argparse
 import json
 from pixels import Pixels
-from structures import Structures
+from animation import Animation
 from fonts import Fonts
 from effects import Effects
 from test import Test
 
 # http://www.iconarchive.com
 imagesFolder = "images/"
-structuresFolder = "structures/"
+animationFolder = "animations/"
 # http://sharefonts.net
 fontPath = "fonts/code.ttf"
-showAnimation = True
-resolution = (8, 8)
+showAnimation = False
+resolution = (16, 64)
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
     path = os.path.dirname(sys.argv[0])
 
     imagesFolderPath = path + "/" + imagesFolder
-    structuresFolderPath  = path + "/" + structuresFolder
+    animationFolderPath  = path + "/" + animationFolder
     fontFullPath = path + "/" + fontPath
 
     parser = argparse.ArgumentParser(description='Process some integers.')
@@ -38,7 +38,7 @@ def main():
     parser.add_argument('--images', help='Get list of all available image names to be used in image option')
     parser.add_argument('--effects', help='Get list of all available effect names to be used in effect option')
     parser.add_argument('--test', help='Get test matrix (only one frame)')
-    parser.print_help()
+    # parser.print_help()
 
     args = parser.parse_args()
     args.colour = (args.colour[0], args.colour[1], args.colour[2])
@@ -48,11 +48,11 @@ def main():
         # http://www.iconarchive.com/show/square-animal-icons-by-martin-berube.html
         for filename in os.listdir(imagesFolderPath):
             pixels = Pixels(imagesFolderPath, filename)
-            pixels.save(resolution, structuresFolderPath)
+            pixels.save(resolution, animationFolderPath)
 
     if args.images != None:
         images = []
-        for filename in os.listdir(structuresFolderPath):
+        for filename in os.listdir(animationFolderPath):
             file, ext = os.path.splitext(filename)
             name = file.split("_")[0]
             if name not in images:
@@ -65,47 +65,47 @@ def main():
         print(effects.list())
         exit(0)
 
-        if args.image != None:
-            structures = Structures(structuresFolderPath, args.image)
-            animation = structures.get(args.delay)
-            animationJson = json.dumps(animation)
-            print(animationJson)
-            if showAnimation:
-                structures.showAnimation(animation, resolution)
-            exit(0)
-
-    if args.text != None:
-        width, height = resolution
-        fonts = Fonts(fontFullPath, height)
-        letterImages = fonts.getText(args.text, resolution, args.colour)
-        structures = Structures(letterImages)
-        animation = structures.get(args.delay)
+    if args.image != None:
+        animationObject = Animation(animationFolderPath, args.image)
+        animation = animationObject.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
         if showAnimation:
-            structures.showAnimation(animation, resolution)
+            animationObject.show(animation, resolution)
+        exit(0)
+
+    if args.text != None:
+        height, width = resolution
+        fonts = Fonts(fontFullPath, height)
+        letterImages = fonts.getText(args.text, resolution, args.colour)
+        animationObject = Animation(letterImages)
+        animation = animationObject.get(args.delay)
+        animationJson = json.dumps(animation)
+        print(animationJson)
+        if showAnimation:
+            animationObject.show(animation, resolution)
         exit(0)
 
     if args.effect != None:
         effects = Effects(args.effect, resolution)
         pixelsArray = effects.get(args.parameters)
-        structures = Structures(pixelsArray)
-        animation = structures.get(args.delay)
+        animationObject = Animation(pixelsArray)
+        animation = animationObject.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
         if showAnimation:
-            structures.showAnimation(animation, resolution)
+            animationObject.show(animation, resolution)
         exit(0)
 
     if args.test != None:
         test = Test(resolution)
         pixelsArray = test.get()
-        structures = Structures(pixelsArray)
-        animation = structures.get(args.delay)
+        animationObject = Animation(pixelsArray)
+        animation = animationObject.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
         if showAnimation:
-            structures.showAnimation(animation, resolution)
+            animationObject.show(animation, resolution)
         exit(0)
 
 if __name__ == "__main__":
