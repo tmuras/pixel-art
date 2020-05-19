@@ -26,14 +26,14 @@ class Pixels:
         pixelValues = [rgb2hex(color) for color in image.getdata()]
         pixelArray = np.array(pixelValues, dtype='str')
         pixelArray = pixelArray.reshape(height, -1)
+
         if deleteColumn != None:
-            pixelArray = pixelArray[:, deleteColumn:width + deleteColumn]
-        emptyArray = np.full(resolution, '000000')
-        pixelArray = pixelArray[:height, :width]
-        for i in range(0, len(pixelArray)):
-            for j in range(0, len(pixelArray[i])):
-                emptyArray[i, j] = pixelArray[i, j]
-        return emptyArray
+            emptyArray = np.full(resolution, '000000')
+            fullArray = np.concatenate((emptyArray, pixelArray, emptyArray), axis=1)
+            fullArray = fullArray[:, deleteColumn:width + deleteColumn]
+            return fullArray[:height, :width]
+
+        return pixelArray[:height, :width]
 
     def save(self, resolution, outputFolder):
         index = 1

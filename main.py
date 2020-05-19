@@ -15,7 +15,6 @@ imagesFolder = "images/"
 animationFolder = "animations/"
 # http://sharefonts.net
 fontPath = "fonts/code.ttf"
-showAnimation = False
 resolution = (16, 64)
 
 
@@ -28,6 +27,7 @@ def main():
     fontFullPath = path + "/" + fontPath
 
     parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('--show', default=False, type=bool, help='Show animation')
     parser.add_argument('--update', default=False, type=bool, help='Re-create structures from existing images (default: False). True if images should be re-created')
     parser.add_argument('--delay', default=1000, type=int, help='Set delay in ms between animation frames - image, text, and effect (dafault: 1000)')
     parser.add_argument('--colour', default=[255, 255, 255], type=int, nargs=3, help='Set font colour in RGB format - 3 values between 0 and 255 (default: 255 255 255)')
@@ -70,7 +70,7 @@ def main():
         animation = animationObject.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
-        if showAnimation:
+        if args.show == True:
             animationObject.show(animation, resolution)
         exit(0)
 
@@ -82,7 +82,7 @@ def main():
         animation = animationObject.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
-        if showAnimation:
+        if args.show == True:
             animationObject.show(animation, resolution)
         exit(0)
 
@@ -93,7 +93,7 @@ def main():
         animation = animationObject.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
-        if showAnimation:
+        if args.show == True:
             animationObject.show(animation, resolution)
         exit(0)
 
@@ -104,7 +104,7 @@ def main():
         animation = animationObject.get(args.delay)
         animationJson = json.dumps(animation)
         print(animationJson)
-        if showAnimation:
+        if args.show == True:
             animationObject.show(animation, resolution)
         exit(0)
 

@@ -1,8 +1,11 @@
-import matplotlib.colors as colors
-
 def rgb2hex(color):
-    return colors.rgb2hex((color[0] / 255, color[1] / 255, color[2] / 255))[1:]
+    r = '{0:02x}'.format(color[0])
+    g = '{0:02x}'.format(color[1])
+    b = '{0:02x}'.format(color[2])
+    return r + b + g
 
 def hex2color(hex):
-    color = colors.hex2color(hex)
-    return (int(color[0] * 255), int(color[1] * 255), int(color[2] * 255))
+    r = hex[1:3]
+    g = hex[3:5]
+    b = hex[5:7]
+    return (int(r, 16), int(g, 16), int(b, 16))
