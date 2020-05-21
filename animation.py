@@ -23,14 +23,12 @@ class Animation:
 
     def get(self, delay):
         animation = []
-        time = 0
         for pixelArray in self.pixelsArray:
             row = {
-                'time': time,
+                'time': delay,
                 'data': pixelArray
             }
             animation.append(row)
-            time = delay
         return animation
 
     def show(self, animation, resolution):

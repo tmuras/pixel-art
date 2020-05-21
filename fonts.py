@@ -26,7 +26,7 @@ class Fonts:
         if width != height:
             image = self.__getImage(text, colour, resolution)
             textPixels = Pixels(image)
-            for i in range(0, image.width + width):
+            for i in range(0, image.width + width + 1):
                 pixelArray = textPixels.convert(resolution, i)
                 pixelsArray.append(pixelArray)
         else:
