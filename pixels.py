@@ -21,19 +21,24 @@ class Pixels:
         image = image.resize(resolution)
         return image
 
-    def __convert(self, image, resolution, deleteColumn = None):
+    def __convert(self, image, resolution, effect = None, columns = None):
         height, width = resolution
         pixelValues = [rgb2hex(color) for color in image.getdata()]
         pixelArray = np.array(pixelValues, dtype='str')
         pixelArray = pixelArray.reshape(height, -1)
+        fullArray = pixelArray
 
-        if deleteColumn != None:
+        if columns != None:
             emptyArray = np.full(resolution, '000000')
-            fullArray = np.concatenate((emptyArray, pixelArray, emptyArray), axis=1)
-            fullArray = fullArray[:, deleteColumn:width + deleteColumn]
-            return fullArray[:height, :width]
+            if effect != None and effect == 'scroll':
+                fullArray = np.concatenate((emptyArray, pixelArray, emptyArray), axis=1)
+                fullArray = fullArray[:, columns[0]:columns[1]]
+            else:
+                fullArray = np.concatenate((pixelArray, emptyArray), axis=1)
+                fullArray = fullArray[:, columns[0]:columns[1]]
+                fullArray = np.concatenate((fullArray, emptyArray), axis=1)
 
-        return pixelArray[:height, :width]
+        return fullArray[:height, :width]
 
     def save(self, resolution, outputFolder):
         index = 1
@@ -45,6 +50,6 @@ class Pixels:
             np.savetxt(outputFilePath, pixelArray, fmt='%s')
             index += 1
 
-    def convert(self, resolution, deleteColumn = None):
-        pixelArray = self.__convert(self.image, resolution, deleteColumn)
+    def convert(self, resolution, effect, deleteColumn = None):
+        pixelArray = self.__convert(self.image, resolution, effect, deleteColumn)
         return pixelArray.tolist()

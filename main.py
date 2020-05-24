@@ -14,7 +14,7 @@ from test import Test
 imagesFolder = "images/"
 animationFolder = "animations/"
 # http://sharefonts.net
-fontPath = "fonts/code.ttf"
+fontPath = "fonts/5x7_practical.ttf"
 resolution = (16, 64)
 
 
@@ -31,9 +31,11 @@ def main():
     parser.add_argument('--update', default=False, type=bool, help='Re-create structures from existing images (default: False). True if images should be re-created')
     parser.add_argument('--delay', default=1000, type=int, help='Set delay in ms between animation frames - image, text, and effect (dafault: 1000)')
     parser.add_argument('--colour', default=[255, 255, 255], type=int, nargs=3, help='Set font colour in RGB format - 3 values between 0 and 255 (default: 255 255 255)')
-    parser.add_argument('--parameters', default=[255, 255, 255], type=int, nargs='*', help='Set parameters for effect. Use colour in RGB format for snakes and colour increment speed(integer) and number of frames for rainbow')
+    parser.add_argument('--parameters', default=[255, 255, 255], type=int, nargs='*', help='Set parameters for effect. For snakes use colour in RGB format. For rainbow use colour increment speed(integer) and number of frames')
+    parser.add_argument('--font_size', default='large', help='Enter size of the font: small or large and effect: static or scroll')
+    parser.add_argument('--font_effect', default='static', help='Enter effect for font: static or scroll')
     parser.add_argument('--image', help='Enter image name to get animation. Required option is delay')
-    parser.add_argument('--text', help='Enter text to get animation. Required options are: colour and delay')
+    parser.add_argument('--text', help='Enter text to get animation. Required options are: colour, font and delay')
     parser.add_argument('--effect', help='Enter effect name to get animation. Required options are: parameters and delay')
     parser.add_argument('--images', help='Get list of all available image names to be used in image option')
     parser.add_argument('--effects', help='Get list of all available effect names to be used in effect option')
@@ -75,9 +77,8 @@ def main():
         exit(0)
 
     if args.text != None:
-        height, width = resolution
-        fonts = Fonts(fontFullPath, height)
-        letterImages = fonts.getText(args.text, resolution, args.colour)
+        fonts = Fonts(fontFullPath, args.font_size, args.font_effect, resolution)
+        letterImages = fonts.getText(args.text, args.colour)
         animationObject = Animation(letterImages)
         animation = animationObject.get(args.delay)
         animationJson = json.dumps(animation)

@@ -1,39 +1,71 @@
 from pixels import Pixels
 from PIL import Image, ImageDraw, ImageFont
 
+import math
+
 class Fonts:
 
-    def __init__(self, fontPath, size):
+    def __init__(self, fontPath, size, effect, resolution):
 
-        self.font = ImageFont.truetype(fontPath, size)
+        self.size = size
+        self.effect = effect
+        self.height, self.width = resolution
+
+        if size == 'small':
+            self.font = ImageFont.truetype(fontPath, self.height)
+        else:
+            self.font = ImageFont.truetype(fontPath, 2 * self.height)
 
 
-    def __getImage(self, text, colour, resolution):
-        height, width = resolution
+    def __getImage(self, text, colour):
         text_width, text_height = self.font.getsize(text)
-        image = Image.new('RGB', (text_width, text_height), (0, 0, 0))
+        width = text_width
+        if text_width < self.width:
+            width = self.width
+        height = text_height
+        if text_height < self.height:
+            height = self.height
+        image = Image.new('RGB', (width, height), (0, 0, 0))
         draw = ImageDraw.Draw(image)
         draw.text((0, 0), text, colour, self.font)
-        if height != width:
-            return image.crop((0, text_height - height, text_width, text_height))
-        return image.crop((0, text_height - height, width, text_height))
+        return image
 
 
-    def getText(self, text, resolution, colour):
-        height, width = resolution
+    def getText(self, text, colour):
         pixelsArray = []
+        resolution = (self.height, self.width)
 
-        if width != height:
-            image = self.__getImage(text, colour, resolution)
-            textPixels = Pixels(image)
-            for i in range(0, image.width + width + 1):
-                pixelArray = textPixels.convert(resolution, i)
-                pixelsArray.append(pixelArray)
+        lines = None
+        if self.effect == 'scroll':
+            lines = [text.replace("|", " ")]
         else:
-            for sign in text:
-                image = self.__getImage(sign, colour, resolution)
-                letterPixels = Pixels(image)
-                pixelArray = letterPixels.convert(resolution)
-                pixelsArray.append(pixelArray)
+            lines = text.split("|")
+
+        for line in lines:
+            image = self.__getImage(line, colour)
+            textPixels = Pixels(image)
+            if self.effect == 'scroll':
+                for i in range(0, image.width + self.width + 1):
+                    columns = (i, i + self.width)
+                    pixelArray = textPixels.convert(resolution, self.effect, columns)
+                    pixelsArray.append(pixelArray)
+            else:
+                frameWidth, letterWidth = self.__getFrameWidth(line)
+                frames = 1
+                if frameWidth + letterWidth <= image.width:
+                    frames = math.ceil(image.width / frameWidth)
+                columns = (0, frameWidth)
+                for i in range(0, frames):
+                    pixelArray = textPixels.convert(resolution, self.effect, columns)
+                    pixelsArray.append(pixelArray)
+                    columns = (columns[0] + frameWidth, columns[1] + frameWidth)
 
         return pixelsArray
+
+
+    def __getFrameWidth(self, text):
+        letterWidth, letterHeight = self.font.getsize(text[0])
+        letterCounter = 1
+        while letterWidth * letterCounter < self.width:
+            letterCounter = letterCounter + 1
+        return (letterWidth * (letterCounter - 1), letterWidth)
